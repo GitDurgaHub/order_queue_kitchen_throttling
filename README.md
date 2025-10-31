@@ -8,7 +8,7 @@ A **Slim 3-based REST API** built in **PHP 7.3**, demonstrating clean code archi
 
 Below is the overall folder layout (same as shown in your project explorer screenshot):
 
-```
+
 ORDER_QUEUE_KITCHEN_THROTTLING/
 │
 ├─ .vscode/
@@ -63,7 +63,7 @@ ORDER_QUEUE_KITCHEN_THROTTLING/
 ├─ index.php                      # Application entry point
 ├─ phpunit.xml
 └─ README.md
-```
+
 
 ---
 
@@ -86,7 +86,7 @@ Since the `vendor` folder is committed, you **don’t need to run composer insta
 
 2. Run the script in [`sql/migrations.sql`](./sql/migrations.sql):
 
-   ```sql
+   sql
    CREATE DATABASE IF NOT EXISTS restaurant;
    USE restaurant;
 
@@ -99,7 +99,7 @@ Since the `vendor` folder is committed, you **don’t need to run composer insta
        pickup_time DATETIME NULL,
        completed_at DATETIME NULL
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-   ```
+   
 
 3. Update your DB credentials inside **`src/Settings.php`** (look for the `settings['db']` array).
 
@@ -111,17 +111,17 @@ Since the `vendor` folder is committed, you **don’t need to run composer insta
 
 1. Copy the entire folder `ORDER_QUEUE_KITCHEN_THROTTLING` into:
 
-   ```
+   
    C:\xampp\htdocs\
-   ```
+   
 2. Ensure your Apache service is running.
 3. Enable rewrite module in Apache (`mod_rewrite` must be on).
 4. Check `.htaccess` file inside the project root (it already routes all requests to `index.php`).
 5. Access the API at:
 
-   ```
+   
    http://localhost/order_queue_kitchen_throttling/
-   ```
+   
 
 ---
 
@@ -129,15 +129,15 @@ Since the `vendor` folder is committed, you **don’t need to run composer insta
 
 From project root:
 
-```bash
+bash
 php -S localhost:8000 -t .
-```
+
 
 Then access:
 
-```
+
 http://localhost:8000/orders/active
-```
+
 
 ---
 
@@ -147,13 +147,13 @@ http://localhost:8000/orders/active
 
 **GET**
 
-```
+
 http://localhost/order_queue_kitchen_throttling/orders/active
-```
+
 
 **Response:**
 
-```json
+json
 {
   "data": [
     {
@@ -167,7 +167,7 @@ http://localhost/order_queue_kitchen_throttling/orders/active
     }
   ]
 }
-```
+
 
 ---
 
@@ -175,32 +175,32 @@ http://localhost/order_queue_kitchen_throttling/orders/active
 
 **POST**
 
-```
+
 http://localhost/order_queue_kitchen_throttling/orders
-```
+
 
 **Request Body (Normal):**
 
-```json
+json
 {
   "items": ["coke", "garlic bread"],
   "pickup_time": "2025-10-30T12:30:00Z"
 }
-```
+
 
 **Request Body (VIP):**
 
-```json
+json
 {
   "items": ["coke", "garlic bread"],
   "pickup_time": "2025-10-30T12:30:00Z",
   "VIP": true
 }
-```
+
 
 **Success Response:**
 
-```json
+json
 {
   "data": {
     "id": 2,
@@ -212,15 +212,15 @@ http://localhost/order_queue_kitchen_throttling/orders
     "completed_at": null
   }
 }
-```
+
 
 **If kitchen is full (non-VIP):**
 
-```json
+json
 {
   "error": "Kitchen is full"
 }
-```
+
 
 ---
 
@@ -228,21 +228,21 @@ http://localhost/order_queue_kitchen_throttling/orders
 
 **POST**
 
-```
+
 http://localhost/order_queue_kitchen_throttling/orders/{id}/complete
-```
+
 
 **Example:**
 
-```
+
 http://localhost/order_queue_kitchen_throttling/orders/5/complete
-```
+
 
 **Response:**
 
-```json
+json
 { "message": "Order marked completed" }
-```
+
 
 ---
 
@@ -294,9 +294,9 @@ http://localhost/order_queue_kitchen_throttling/orders/5/complete
 
 All API logs and exceptions are written to:
 
-```
+
 /logs/app.log
-```
+
 
 ---
 
@@ -306,41 +306,25 @@ Use Postman or `curl`.
 
 Example:
 
-```bash
+bash
 curl -X POST http://localhost/order_queue_kitchen_throttling/orders \
   -H "Content-Type: application/json" \
   -d '{"items":["coke","garlic bread"],"pickup_time":"2025-10-30T12:30:00Z"}'
-```
 
----
 
-## 🧰 Troubleshooting
+Goto project folder order_queue_kitchen_throttling
+cd order_queue_kitchen_throttling/
+php src/Worker/auto_complete_worker.php             # This script is to mark existing active orders mark as completed after certain seconds
 
-| Issue                         | Solution                                                 |
-| ----------------------------- | -------------------------------------------------------- |
-| **404 Not Found**             | Ensure `.htaccess` file exists and `mod_rewrite` enabled |
-| **Database Connection Error** | Check credentials inside `src/Settings.php`              |
-| **White Page**                | Enable display errors = On in `php.ini` for debugging    |
-| **Version Mismatch**          | Confirm PHP 7.3.x                                        |
-
----
-
-## 🖼️ Folder Structure Screenshot
-
-Refer to the structure image below (from your project):
-
-![Project Folder Structure](./bd814d01-15c7-4321-a663-6663ccb1335e.png)
-
----
-
-## 👨‍💻 Maintainer
-
-Developed for TaoDigital Backend Coding Challenge – **Order Queue & Kitchen Throttling**
 
 **Tech Stack:**
 
 * PHP 7.3
 * Slim Framework 3.x
 * MySQL 5.7/8.x
+  
 
----
+‍💻 Author
+Vijaya Durga Prasanna
+Senior Software Engineer — PHP | AWS | Angular | Full Stack
+LinkedIn: https://www.linkedin.com/in/durgakota-seniorfullstackengineer/                                   |
